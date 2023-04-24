@@ -1,0 +1,185 @@
+{
+    "_version": "1.48.0",
+    "sap.app": {
+        "id": "apppad",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "[IM] 수출입 관리 솔루션",
+        "description": "수출입 관리 솔루션 ",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:fpm",
+            "version": "1.9.2",
+            "toolsId": "f8f9245a-f394-44de-91e7-06b552d8328e"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/sap/opu/odata4/sap/zui_asim0010n_o4/srvd/sap/zsd_asim0010n/0001/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "annotation"
+                    ],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            },
+            "annotation": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotation.xml",
+                "settings": {
+                    "localUri": "annotations/annotation.xml"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": false,
+        "dependencies": {
+            "minUI5Version": "1.108.10",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+                "sap.fe.templates": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "apppad.i18n.i18n",
+                    "bundleUrl": "i18n/i18n.properties",
+                    "async": true
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            },
+            "side": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "model/sideContent.json"
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "rootView": {
+            "viewName": "apppad.ext.main.Main",
+            "id": "Main"
+        },
+        "routing": {
+            "config": {
+                "controlId": "appContent",
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "controlAggregation": "pages"
+            },
+            "routes": [
+                {
+                    "pattern": "Main:?query:",
+                    "name": "MainPage",
+                    "target": "MainPage"
+                },
+                {
+                    "pattern": ":?query:",
+                    "name": "HeadList",
+                    "target": "HeadList"
+                },
+                {
+                    "pattern": "Head({key}):?query:",
+                    "name": "HeadObjectPage",
+                    "target": "HeadObjectPage"
+                }
+            ],
+            "targets": {
+                "MainPage": {
+                    "type": "Component",
+                    "id": "MainPage",
+                    "name": "sap.fe.core.fpm",
+                    "viewLevel": 1,
+                    "clearControlAggregation": true,
+                    "options": {
+                        "settings": {
+                            "viewName": "apppad.ext.main.MainPage",
+                            "entitySet": "Code"
+                        }
+                    }
+                },
+                "HeadList": {
+                    "type": "Component",
+                    "id": "HeadList",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings": {
+                            "entitySet": "Head",
+                            "variantManagement": "Page",
+                            "navigation": {
+                                "Head": {
+                                    "detail": {
+                                        "route": "HeadObjectPage"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "HeadObjectPage": {
+                    "type": "Component",
+                    "id": "HeadObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "entitySet": "Head"
+                        }
+                    }
+                }
+            }
+        },
+        "extends": {
+            "extensions": {
+                "sap.ui.controllerExtensions": {}
+            }
+        }
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    }
+}

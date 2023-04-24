@@ -1,0 +1,113 @@
+<mvc:View
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+    xmlns:tnt="sap.tnt"
+	xmlns:macros="sap.fe.macros"
+	xmlns="sap.m"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	controllerName="apppad.ext.main.Main"
+>
+   <tnt:ToolPage
+		id="app"
+		class="sapUiDemoToolPage">
+		<tnt:header>
+			<tnt:ToolHeader id="_IDGenToolHeader1">
+				<Button
+					id="sideNavigationToggleButton"
+					icon="sap-icon://menu2"
+					type="Transparent"
+					press=".onSideNavButtonPress"
+					tooltip="{i18n>collpaseMenuButtonText}">
+                    
+					<layoutData>
+						<OverflowToolbarLayoutData id="_IDGenOverflowToolbarLayoutData1" priority="NeverOverflow"/>
+					</layoutData>
+				</Button>
+				<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
+				<Title id="_IDGenTitle1"
+					text="{i18n>appTitle}"
+					level="H2"/>
+				<ToolbarSpacer id="_IDGenToolbarSpacer2"/>
+				<Button
+					id="errorButton"
+					icon="sap-icon://message-popup"
+					visible="{= ${alerts>/alerts/errors}.length === 0 ? false : true }"
+					type="Transparent"
+					press=".onMessagePopoverPress"
+					tooltip="{i18n>errorButtonTooltip}">
+					<layoutData>
+						<OverflowToolbarLayoutData id="_IDGenOverflowToolbarLayoutData2" closeOverflowOnInteraction="false"/>
+					</layoutData>
+				</Button>
+				<Button
+					id="notificationButton"
+					icon="sap-icon://ui-notifications"
+					visible="{= ${alerts>/alerts/notifications}.length === 0 ? false : true }"
+					type="Transparent"
+					press=".onNotificationPress"
+					tooltip="{i18n>notificationButtonTooltip}">
+					<layoutData>
+						<OverflowToolbarLayoutData id="_IDGenOverflowToolbarLayoutData3" closeOverflowOnInteraction="false"/>
+					</layoutData>
+				</Button>
+				<Button
+					id="userButton"
+					text="{i18n>userName}"
+					type="Transparent"
+					press=".onUserNamePress">
+					<layoutData>
+						<OverflowToolbarLayoutData id="_IDGenOverflowToolbarLayoutData4" closeOverflowOnInteraction="false"/>
+					</layoutData>
+				</Button>
+			</tnt:ToolHeader>
+		</tnt:header>
+		<tnt:sideContent>
+			<tnt:SideNavigation id="_IDGenSideNavigation1"
+				expanded="false"
+				selectedKey="{side>/selectedKey}">
+				<tnt:NavigationList id="_IDGenNavigationList1"
+                    
+					items="{
+						path: 'side>/navigation',
+						templateShareable: false
+					}">
+					<tnt:NavigationListItem id="_IDGenNavigationListItem1"
+						text="{path: 'side>titleI18nKey', formatter: '.getBundleText'}"
+						icon="{side>icon}"
+						expanded="{side>expanded}"
+						items="{
+							path: 'side>items',
+                            
+							templateShareable: false
+						}"
+						key="{side>key}"
+						href="#/{side>key}">
+						<tnt:NavigationListItem id="_IDGenNavigationListItem2"
+							text="{path: 'side>titleI18nKey', formatter: '.getBundleText'}"
+							key="{side>key}"
+							href="{side>key}">
+						</tnt:NavigationListItem>
+					</tnt:NavigationListItem>
+				</tnt:NavigationList>
+				<tnt:fixedItem>
+					<tnt:NavigationList id="_IDGenNavigationList2"
+						items="{
+							path: 'side>/fixedNavigation',
+							templateShareable: false
+						}">
+						<tnt:NavigationListItem id="_IDGenNavigationListItem3"
+							text="{path: 'side>titleI18nKey', formatter: '.getBundleText'}"
+							icon="{side>icon}"
+							key="{side>key}"
+							href="{side>key}">
+						</tnt:NavigationListItem>
+					</tnt:NavigationList>
+				</tnt:fixedItem>
+			</tnt:SideNavigation>
+		</tnt:sideContent>
+		<tnt:mainContents>
+			<NavContainer id="appContent"/>
+		</tnt:mainContents>
+	</tnt:ToolPage>
+</mvc:View>
